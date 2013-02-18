@@ -1,3 +1,6 @@
 [submodule "tmux-source"]
 	path = tmux-source
 	url = git://git.code.sf.net/p/tmux/tmux-code
+[submodule "fish-source"]
+	path = fish-source
+	url = git://github.com/fish-shell/fish-shell
