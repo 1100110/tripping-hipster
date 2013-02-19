@@ -9,6 +9,7 @@
         set term=screen-256color
         set t_Co=256    
         set background=dark
+        set shell=dash
 " UTF8 is my system default encoding.
         set nocompatible 
         set encoding=utf8
@@ -81,6 +82,8 @@
         nnoremap <leader>- <esc>:split<CR>
         nnoremap <leader>= <esc>:vsplit<CR>
 
+        "cmap w!! %!sudo tee >> /dev/null %
+
 """"""""""""""""""""""""""""""""
 " Vundle
 "+++++++++++++++++++++++++++++++
@@ -89,35 +92,36 @@
         filetype on
         filetype off
         call vundle#rc()
+        " Vundle
         Bundle 'gmarik/vundle'
         Bundle 'gmarik/github-search.vim'
+        " ColorSchemes
+        " My Favorite!!
+        Bundle 'molokai'
+        Bundle 'vim-scripts/xterm-color-table.vim'
+        Bundle 'godlygeek/csapprox'
+        Bundle 'tpope/vim-colors-solarized'
+        Bundle 'spf13/vim-colors'  
+        Bundle 'flazz/vim-colorschemes'
+        " Utilities
         Bundle 'tpope/vim-fugitive'
+        Bundle 'tpope/vim-markdown'
         Bundle 'Lokaltog/vim-powerline'
         Bundle 'scrooloose/nerdtree'
         Bundle 'scrooloose/nerdcommenter'
         Bundle 'scrooloose/syntastic' 
-        Bundle 'tpope/vim-colors-solarized'
-        "Bundle 'Lokaltog/powerline'
         Bundle 'vim-scripts/license-loader'
-        Bundle 'vim-scripts/Fold-License'
-        Bundle 'vim-scripts/instant-markdown.vim'
-        Bundle 'vim-scripts/vim-octopress'
-        Bundle 'vim-scripts/vimwiki'
         Bundle 'vim-scripts/gnupg-symmetric.vim'
         Bundle 'ervandew/supertab'
         Bundle 'JesseKPhillips/d.vim'
-        "Bundle 'altercation/vim-colors-solarized'
-        Bundle 'godlygeek/csapprox'
-        Bundle 'vim-scripts/xterm-color-table.vim'
-        Bundle 'molokai'
         filetype plugin indent on
 
 syntax on
-colorscheme molokai 
+"colorscheme molokai 
 " Solarized
-"let g:solarized_menu=0
-"let g:solarized_termcolors=256
-"let g:solarized_italic=0
-"let g:solarized_underline=1
-"let g:solarized_termtrans=0
-"colorscheme solarized
+let g:solarized_menu=0
+let g:solarized_termcolors=256
+let g:solarized_italic=0
+let g:solarized_underline=1
+let g:solarized_termtrans=0
+colorscheme solarized
