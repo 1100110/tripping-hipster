@@ -1,9 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+# Clean ~/
+rm -rf ~/.vim
+rm ~/.vimrc
+rm ~/.tmux.conf
+rm ~/.fish
 
-# Link the vim directory to home.
-ln -s ./vim ~/.vim
+# Link the vim directory to ~/
+ln -s `pwd`/vim ~/.vim
+
 # Pull out the individual configs and link to ~/
-ln -s ./vim/fishrc ~/.fish 
-ln -s ./vim/tmux.config ~/.tmux.config
-ln -s ./vim/vimrc ~/.vimrc
+ln -s ~/.vim/fishrc ~/.fish 
+ln -s ~/.vim/tmux.conf ~/.tmux.conf
+ln -s ~/.vim/vimrc ~/.vimrc
 
+echo "...And we're done!"
