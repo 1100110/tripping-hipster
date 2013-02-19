@@ -1,0 +1,1 @@
+./configure CFLAGS='-O2 -pipe -march=native' --disable-selinux --enable-gui=no --enable-luainterp=yes --enable-pythoninterp=yes --enable-rubyinterp=yes --enable-fail-if-missing --with-features=huge
