@@ -5,11 +5,11 @@
         set ttyfast     
         set lazyredraw  
         set mouse=a     
-        set ttymouse=xterm2
+        set ttymouse=xterm
         set term=screen-256color
+        set shell=bash
         set t_Co=256    
         set background=dark
-        set shell=dash
 " UTF8 is my system default encoding.
         set nocompatible 
         set encoding=utf8
@@ -22,22 +22,27 @@
         set smartindent
         set expandtab
 " Search Behaviour
-        set magic
         set ignorecase
         set smartcase
         set hlsearch
         set incsearch
+        set scrolloff=6
 " Backups and Undo
         set nobackup
         set noswapfile
-        set autochdir
-        set autoread 
-        set autowriteall
+        if has('persistent_undo')
+            set undofile           " So is persistent undo ...
+            set undolevels=1000     " Maximum number of changes that can be undone
+            set undoreload=10000    " Maximum number lines to save for undo on a buffer reload
+            " Store swap files in fixed location, not current directory.
+            set dir=~/.vimswap//,/var/tmp//,/tmp//,.
+            set undodir=~/.vim/undo/
+        endif
+        set history=1000
 " LineFolding
         set foldenable
         set foldmethod=indent
         set foldlevel=1
-
         set wrap
         set whichwrap+=b,s,h,l,<,>,[,]
         set backspace=indent,eol,start
@@ -47,17 +52,37 @@
         set wildignore=*.o,*.git,*.a,*.so,*.pyc
         set showcmd
         set showmode
-" Line Numbers on Steroids
-        set number
+        set completeopt=menu,preview,longest
+        set omnifunc=syntaxcomplete#Complete
+
+        let g:SuperTabDefaultCompletionType = "context"
+        let g:neocomplcache_enable_at_startup = 1
+        let g:neocomplcache_enable_camel_case_completion = 1
+        let g:neocomplcache_enable_smart_case = 1
+        let g:neocomplcache_enable_underbar_completion = 1
+        let g:neocomplcache_enable_auto_delimiter = 1
+
+        " Plugin key-mappings.
+        imap <C-k> <Plug>(neosnippet_expand_or_jump)
+        smap <C-k> <Plug>(neosnippet_expand_or_jump)
+        inoremap <expr><C-g> neocomplcache#undo_completion()
+
+        " <TAB>: completion.
+        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"    
+
+        " <C-h>, <BS>: close popup and delete backword char.
+        inoremap <expr><C-y> neocomplcache#close_popup()
+
+        " Toggle search highlighting
+        nmap <silent> <leader>/ :set invhlsearch<CR>
+
         set ruler
-        " set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
+        set relativenumber
         set cursorline  
         set colorcolumn=80
-        set scrolljump=6
-        set scrolloff=6
         set pastetoggle=<F9>
         set laststatus=2
-        let history=2048
 
 """"""""""""""""""""""""""""""""
 " Mappings
@@ -65,8 +90,13 @@
         let mapleader="-"
         let g:mapleader="-"
 
+        let g:neocomplcache_enable_at_startup=1
+
         nnoremap ; :
         nmap Y d$ 
+        nmap J 4j
+        nmap K 4k
+        "nmap <leader>cs 
         " Easy paste mode
         map <leader>pp :setlocal paste!<CR>
         " Easily Edit .vimrc
@@ -82,7 +112,18 @@
         nnoremap <leader>- <esc>:split<CR>
         nnoremap <leader>= <esc>:vsplit<CR>
 
-        "cmap w!! %!sudo tee >> /dev/null %
+        cmap w!! w !sudo tee % >/dev/null
+
+        let g:T_AUTHOR = "Jude Young"
+        let g:T_AUTHOR_EMAIL = "0b1100110 <gmail>"
+        let g:T_DATE_FORMAT = "%c"
+
+        nnoremap <silent> <leader>gs :Gstatus<CR>
+        nnoremap <silent> <leader>gd :Gdiff<CR>
+        nnoremap <silent> <leader>gc :Gcommit<CR>
+        nnoremap <silent> <leader>gb :Gblame<CR>
+        nnoremap <silent> <leader>gl :Glog<CR>
+        nnoremap <silent> <leader>gp :Git push<CR>
 
 """"""""""""""""""""""""""""""""
 " Vundle
@@ -114,14 +155,15 @@
         Bundle 'vim-scripts/gnupg-symmetric.vim'
         Bundle 'ervandew/supertab'
         Bundle 'JesseKPhillips/d.vim'
+        Bundle 'vim-ruby/vim-ruby'
         filetype plugin indent on
 
 syntax on
-"colorscheme molokai 
+colorscheme molokai 
 " Solarized
-let g:solarized_menu=0
-let g:solarized_termcolors=256
-let g:solarized_italic=0
-let g:solarized_underline=1
-let g:solarized_termtrans=0
-colorscheme solarized
+"let g:solarized_menu=0
+"let g:solarized_termcolors=256
+"let g:solarized_italic=0
+"let g:solarized_underline=1
+"let g:solarized_termtrans=0
+"colorscheme solarized
